@@ -12,3 +12,4 @@ CT TC
 This will alow you to generate large masses of sequences based upon your input
 
 Also the data is stored in chunks, as to not destroy your computer. yw :D
+This is also considered a iupac disambicuation
