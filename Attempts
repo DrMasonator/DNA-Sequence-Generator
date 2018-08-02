@@ -1,13 +1,12 @@
 import math
 import pickle
-N = "ANNNNTNCNG"
-nT = 0
+N = "ATCGMRWSYKVHBDN"
 number = 0
 dicta = {"A":0,"T":1,"C":2,"G":3}
-dictb = {0:"A",1:"T",2:"C",3:"G"}
 dictc = {"A":0,"T":0,"C":0,"G":0,"N":1}
 dictd = {"0":"A","1":"T","2":"C","3":"G"}
 dicte = {"A":"0","T":"1","C":"2","G":"3","N":"4"}
+key = {"M": ["A", "C"], "R": ["A", "G"],"W": ["A", "T"], "S": ["C", "G"], "Y": ["C", "T"], "K": ["G", "T"], "V": ["A", "C", "G"], "H": ["A", "C", "T"], "B": ["C", "G", "T"], "D" : ["A", "G", "T"], "N": ["A", "T", "C", "G"]}
 tList = []
 power = 1048576
 mn = int()
@@ -15,10 +14,43 @@ t = 0
 thatList = [""]
 i = 0
 numtList = 1
+mTotal = N.count('M')
+rTotal = N.count('R')
+wTotal = N.count('W')
+sTotal = N.count('S')
+yTotal = N.count('Y')
+kTotal = N.count('K')
+vTotal = N.count('V')
+hTotal = N.count('H')
+bTotal = N.count('B')
+dTotal = N.count('D')
 nTotal = N.count('N')
-Total = 4**nTotal
+Total =  2**mTotal * 2**rTotal * 2**wTotal * 2**sTotal * 2**yTotal * 2**kTotal * 3**vTotal  * 3**hTotal * 3**bTotal * 3**dTotal * 4**nTotal
 Dump = 1
 r = 0
+tM = 0
+tR = 0
+tW = 0
+tS = 0
+tY = 0
+tK = 0
+tV = 0
+tH = 0
+tB = 0
+tD = 0
+tN = 0
+dictM = {0:"A",1:"C"}
+dictR = {0:"A",1:"G"}
+dictW = {0:"A",1:"T"}
+dictS = {0:"T",1:"C"}
+dictY = {0:"T",1:"G"}
+dictK = {0:"C",1:"G"}
+dictV = {0:"A",1:"T",2:"C"}
+dictH = {0:"A",1:"T",2:"G"}
+dictB = {0:"A",1:"C",2:"G"}
+dictD = {0:"T",1:"C",2:"G"}
+dictN = {0:"A",1:"T",2:"C",3:"G"}
+
 
 '''
 for char in N: 
@@ -28,26 +60,86 @@ for char in N:
     i = i + i
 print (thatList)
 '''
-
-#This assigns each letter a number based on a small algorythm
-
 i = 0
 for j in range(Total):
     tList.append("")
     for char in N:
-        if char != ("N"):
+        if char == ("A"):
+            tList[i] = tList[i] + char
+        if char == ("T"):
+            tList[i] = tList[i] + char
+        if char == ("C"):
+            tList[i] = tList[i] + char
+        if char == ("G"):
             tList[i] = tList[i] + char
         if char == ("N"):
-            e = int(math.trunc(number/4**nT) % 4)
-            e = dictb[e]
+            e = int(math.trunc(number/4**tN) % 4)
+            e = dictN[e]
             tList[i] = tList[i] + e
-            nT = nT + 1
-    nT = 0
+            tN = tN + 1
+        if char == ("M"):
+            e = int(math.trunc(number/2**tM) % 2)
+            e = dictM[e]
+            tList[i] = tList[i] + e
+            tM = tM + 1
+        if char == ("R"):
+            e = int(math.trunc(number/2**tR) % 2)
+            e = dictR[e]
+            tList[i] = tList[i] + e
+            tR = tR + 1
+        if char == ("W"):
+            e = int(math.trunc(number/2**tW) % 2)
+            e = dictW[e]
+            tList[i] = tList[i] + e
+            tW = tW + 1
+        if char == ("S"):
+            e = int(math.trunc(number/2**tS) % 2)
+            e = dictS[e]
+            tList[i] = tList[i] + e
+            tS = tS + 1
+        if char == ("Y"):
+            e = int(math.trunc(number/2**tY) % 2)
+            e = dictY[e]
+            tList[i] = tList[i] + e
+            tY = tY + 1
+        if char == ("K"):
+            e = int(math.trunc(number/2**tK) % 2)
+            e = dictK[e]
+            tList[i] = tList[i] + e
+            tK = tK + 1
+        if char == ("V"):
+            e = int(math.trunc(number/3**tV) % 3)
+            e = dictV[e]
+            tList[i] = tList[i] + e
+            tV = tV + 1
+        if char == ("H"):
+            e = int(math.trunc(number/3**tH) % 3)
+            e = dictH[e]
+            tList[i] = tList[i] + e
+            tH = tH + 1
+        if char == ("B"):
+            e = int(math.trunc(number/3**tB) % 3)
+            e = dictB[e]
+            tList[i] = tList[i] + e
+            tB = tB + 1
+        if char == ("D"):
+            e = int(math.trunc(number/3**tD) % 3)
+            e = dictD[e]
+            tList[i] = tList[i] + e
+            tD = tD + 1
+    tM = 0
+    tR = 0
+    tW = 0
+    tS = 0
+    tY = 0
+    tK = 0
+    tV = 0
+    tH = 0
+    tB = 0
+    tD = 0
+    tN = 0
     i = i + 1
     number = number + 1
-    
-#This is the pickler, which alows you to store the data in smaller packets
-
     if len(tList) % power == 0:
         pickle.dump(tList,open("tList_{}.p".format(numtList),"wb"))
         numtList += 1
@@ -60,3 +152,5 @@ if r == 0:
     pickle.dump(tList,open("tList_{}.p".format(numtList),"wb"))
     tList = []
 print ("Done!")
+    
+x = pickle.load(open("tList_1.p","rb"))
