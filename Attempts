@@ -1,0 +1,62 @@
+import math
+import pickle
+N = "ANNNNTNCNG"
+nT = 0
+number = 0
+dicta = {"A":0,"T":1,"C":2,"G":3}
+dictb = {0:"A",1:"T",2:"C",3:"G"}
+dictc = {"A":0,"T":0,"C":0,"G":0,"N":1}
+dictd = {"0":"A","1":"T","2":"C","3":"G"}
+dicte = {"A":"0","T":"1","C":"2","G":"3","N":"4"}
+tList = []
+power = 1048576
+mn = int()
+t = 0
+thatList = [""]
+i = 0
+numtList = 1
+nTotal = N.count('N')
+Total = 4**nTotal
+Dump = 1
+r = 0
+
+'''
+for char in N: 
+    m = dicte[char]
+    print (m)
+    thatList[i] = thatList[i] + m
+    i = i + i
+print (thatList)
+'''
+
+#This assigns each letter a number based on a small algorythm
+
+i = 0
+for j in range(Total):
+    tList.append("")
+    for char in N:
+        if char != ("N"):
+            tList[i] = tList[i] + char
+        if char == ("N"):
+            e = int(math.trunc(number/4**nT) % 4)
+            e = dictb[e]
+            tList[i] = tList[i] + e
+            nT = nT + 1
+    nT = 0
+    i = i + 1
+    number = number + 1
+    
+#This is the pickler, which alows you to store the data in smaller packets
+
+    if len(tList) % power == 0:
+        pickle.dump(tList,open("tList_{}.p".format(numtList),"wb"))
+        numtList += 1
+        tList = []
+        print (Dump)
+        Dump = Dump + 1
+        i = 0
+        r = 1
+if r == 0:
+    pickle.dump(tList,open("tList_{}.p".format(numtList),"wb"))
+    tList = []
+print ("Done!")
